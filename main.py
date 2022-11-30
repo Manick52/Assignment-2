@@ -50,4 +50,31 @@ def merge_sort(arr,cmp):
 
 # must be in-place sort
 def quick_sort(arr,cmp):
-    pass
+    if len(arr) > 1:
+        p = arr[0]
+        l = []
+        r = []
+        for i in range(1, len(arr)):  # sorts elements in increasing order
+            c = cmp(arr[1], p)
+            if c > 0:
+                r.append(arr[i])
+            if c < 0:
+                l.append(arr[i])
+        quick_sort(l, cmp)
+        quick_sort(r, cmp)
+
+        n = len(arr)
+        x = len(l)
+        y = len(r)
+        arr[:x] = l
+        arr[x:n - y] = [p] * (n - x - y)
+        arr[n - y:] = r
+
+
+def cmp(x, y):  # helper function for quicksort
+    if y > x:
+        return -1
+    elif x == y:
+        return 0
+    else:
+        return 1
